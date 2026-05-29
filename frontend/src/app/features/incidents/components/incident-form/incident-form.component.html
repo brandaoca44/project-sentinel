@@ -1,0 +1,81 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="form">
+  <header class="form-header">
+    <span>Registro operacional</span>
+    <h2>Criar novo incidente</h2>
+    <p>
+      Registre um incidente com contexto suficiente para investigação,
+      priorização e auditoria.
+    </p>
+  </header>
+
+  <label>
+    <span>Título</span>
+    <input
+      formControlName="title"
+      placeholder="Ex: Instabilidade na autenticação de usuários"
+    />
+
+    @if (hasError('title')) {
+      <small>Use entre 6 e 120 caracteres.</small>
+    }
+  </label>
+
+  <label>
+    <span>Descrição</span>
+    <textarea
+      formControlName="description"
+      rows="6"
+      placeholder="Descreva sintomas, impacto operacional, usuários afetados e contexto técnico."
+    ></textarea>
+
+    @if (hasError('description')) {
+      <small>Use entre 20 e 1000 caracteres.</small>
+    }
+  </label>
+
+  <div class="grid">
+    <label>
+      <span>Categoria</span>
+      <input
+        formControlName="category"
+        placeholder="Ex: Infraestrutura"
+      />
+
+      @if (hasError('category')) {
+        <small>Categoria é obrigatória.</small>
+      }
+    </label>
+
+    <label>
+      <span>Responsável</span>
+      <input
+        formControlName="assignee"
+        placeholder="Ex: Caíque Brandão"
+      />
+
+      @if (hasError('assignee')) {
+        <small>Responsável é obrigatório.</small>
+      }
+    </label>
+  </div>
+
+  <label>
+    <span>Prioridade</span>
+
+    <select formControlName="priority">
+      @for (priority of priorities; track priority.value) {
+        <option [value]="priority.value">
+          {{ priority.label }}
+        </option>
+      }
+    </select>
+  </label>
+
+  <button
+    type="submit"
+    class="submit-button"
+    [disabled]="isSubmitting"
+  >
+    {{ isSubmitting ? 'Criando incidente...' : 'Criar incidente' }}
+  </button>
+</form>

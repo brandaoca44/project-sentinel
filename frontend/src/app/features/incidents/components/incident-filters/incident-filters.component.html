@@ -1,0 +1,56 @@
+<section class="filters">
+  <div class="filter-group">
+    <label>Status</label>
+
+    <select
+      class="form-control"
+      [(ngModel)]="filters.status"
+      (ngModelChange)="emit()"
+    >
+      <option value="">Todos</option>
+
+      @for (status of statuses; track status.value) {
+        <option [value]="status.value">
+          {{ status.label }}
+        </option>
+      }
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label>Prioridade</label>
+
+    <select
+      class="form-control"
+      [(ngModel)]="filters.priority"
+      (ngModelChange)="emit()"
+    >
+      <option value="">Todas</option>
+
+      @for (priority of priorities; track priority.value) {
+        <option [value]="priority.value">
+          {{ priority.label }}
+        </option>
+      }
+    </select>
+  </div>
+
+  <div class="filter-group grow">
+    <label>Categoria</label>
+
+    <input
+      class="form-control"
+      [(ngModel)]="filters.category"
+      (input)="emit()"
+      placeholder="Ex: Infraestrutura"
+    />
+  </div>
+
+  <button
+    type="button"
+    class="reset-button"
+    (click)="reset()"
+  >
+    Limpar filtros
+  </button>
+</section>

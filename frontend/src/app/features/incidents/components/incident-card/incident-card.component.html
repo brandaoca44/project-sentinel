@@ -1,0 +1,27 @@
+<a class="incident" [routerLink]="['/incidents', incident.id]">
+  <div class="incident__header">
+    <span class="incident__category">{{ incident.category }}</span>
+
+    <div class="incident__badges">
+      <app-status-badge [status]="incident.status" />
+      <app-priority-badge [priority]="incident.priority" />
+    </div>
+  </div>
+
+  <div class="incident__content">
+    <h3>{{ incident.title }}</h3>
+    <p>{{ incident.description }}</p>
+  </div>
+
+  <footer class="incident__footer">
+    <span class="incident__assignee">
+      <span class="incident__avatar">{{ assigneeInitial }}</span>
+      {{ incident.assignee }}
+    </span>
+
+    <span class="incident__meta">
+      {{ auditCount }} eventos · Atualizado em
+      {{ incident.updatedAt | date:'dd/MM/yyyy HH:mm':'':'pt-BR' }}
+    </span>
+  </footer>
+</a>

@@ -2,14 +2,23 @@
 node_modules/
 **/node_modules/
 
+# Angular cache
+.angular/
+**/.angular/
+
 # build
 dist/
 build/
 coverage/
+frontend/dist/
 
 # env
 .env
 .env.*
+
+# logs
+*.log
+npm-debug.log*
 
 backend/generated/
 generated/

@@ -1,0 +1,29 @@
+<div class="shell">
+  <aside class="sidebar">
+    <a routerLink="/" class="brand" aria-label="Sentinel Home">
+      <span class="brand-mark">S</span>
+      <span>
+        <strong>Sentinel</strong>
+        <small>Plataforma de Incidentes</small>
+      </span>
+    </a>
+
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+      <a routerLink="/incidents/new" routerLinkActive="active">Novo Incidente</a>
+      <a href="http://localhost:3333/docs" target="_blank" rel="noreferrer">API Docs</a>
+    </nav>
+
+    <div class="sidebar-card">
+      <span class="pulse"></span>
+      <div>
+        <strong>API Online</strong>
+        <small>localhost:3333/api</small>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <ng-content />
+  </main>
+</div>

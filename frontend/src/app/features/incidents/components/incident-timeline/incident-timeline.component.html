@@ -1,0 +1,39 @@
+<section class="timeline">
+  <header class="timeline__header">
+    <div>
+      <span>Auditoria</span>
+      <h2>Histórico do incidente</h2>
+      <p>
+        Registro cronológico das ações executadas durante o ciclo de vida
+        do incidente.
+      </p>
+    </div>
+
+    <strong>{{ logs.length }} eventos</strong>
+  </header>
+
+  @if (logs.length === 0) {
+    <div class="timeline__empty">
+      Nenhum evento de auditoria registrado até o momento.
+    </div>
+  } @else {
+    <div class="timeline__list">
+      @for (log of logs; track log.id) {
+        <article class="event">
+          <div class="event__marker">
+            <span></span>
+          </div>
+
+          <div class="event__content">
+            <div class="event__topline">
+              <strong>{{ getActionLabel(log.action) }}</strong>
+              <time>{{ log.createdAt | date:'dd/MM/yyyy HH:mm:ss':'':'pt-BR' }}</time>
+            </div>
+
+            <p>{{ log.message }}</p>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

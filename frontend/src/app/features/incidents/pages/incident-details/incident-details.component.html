@@ -1,0 +1,117 @@
+<a routerLink="/" class="back">
+  ← Voltar para a central
+</a>
+
+@if (isLoading()) {
+  <app-loading-state label="Carregando incidente..." />
+}
+
+@else if (error()) {
+  <div class="alert">
+    {{ error() }}
+  </div>
+}
+
+@else if (incident(); as item) {
+
+  <header class="hero">
+    <div class="hero__content">
+
+      <span class="hero__label">
+        {{ item.category }}
+      </span>
+
+      <h1>
+        {{ item.title }}
+      </h1>
+
+      <p>
+        {{ item.description }}
+      </p>
+
+    </div>
+
+    <div class="hero__badges">
+      <app-status-badge
+        [status]="item.status"
+      />
+
+      <app-priority-badge
+        [priority]="item.priority"
+      />
+    </div>
+  </header>
+
+  <section class="details-grid">
+
+    <article class="panel">
+
+      <div class="panel-header">
+        <span>Resumo operacional</span>
+        <h2>Detalhes do incidente</h2>
+      </div>
+
+      <dl>
+
+        <div>
+          <dt>Responsável</dt>
+          <dd>{{ item.assignee }}</dd>
+        </div>
+
+        <div>
+          <dt>Status atual</dt>
+          <dd>{{ item.status }}</dd>
+        </div>
+
+        <div>
+          <dt>Prioridade</dt>
+          <dd>{{ item.priority }}</dd>
+        </div>
+
+        <div>
+          <dt>Criado em</dt>
+          <dd>
+            {{ item.createdAt | date:'dd/MM/yyyy HH:mm':'':'pt-BR' }}
+          </dd>
+        </div>
+
+        <div>
+          <dt>Última atualização</dt>
+          <dd>
+            {{ item.updatedAt | date:'dd/MM/yyyy HH:mm':'':'pt-BR' }}
+          </dd>
+        </div>
+
+      </dl>
+
+      <div class="status-actions">
+
+        <h3>
+          Alterar status
+        </h3>
+
+        <div>
+
+          @for (status of statuses; track status.value) {
+          <button
+            type="button"
+            [disabled]="isUpdating() || item.status === status.value"
+            (click)="changeStatus(status.value)"
+          >
+            {{ status.label }}
+          </button>
+        }
+
+        </div>
+
+      </div>
+
+    </article>
+
+    <app-incident-timeline
+      [logs]="item.logs"
+    />
+
+  </section>
+
+}

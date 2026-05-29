@@ -1,0 +1,40 @@
+<header class="page-header">
+  <div>
+    <p class="eyebrow">Central de operações</p>
+    <h1>Dashboard de Incidentes</h1>
+    <p>Monitore, classifique e resolva incidentes com trilha de auditoria completa.</p>
+  </div>
+
+  <a routerLink="/incidents/new" class="primary-action">Criar incidente</a>
+</header>
+
+<section class="metrics">
+  <article><span>Total</span><strong>{{ total() }}</strong></article>
+  <article><span>Abertos</span><strong>{{ open() }}</strong></article>
+  <article><span>Em andamento</span><strong>{{ inProgress() }}</strong></article>
+  <article><span>Críticos</span><strong>{{ critical() }}</strong></article>
+  <article><span>Resolvidos</span><strong>{{ resolved() }}</strong></article>
+</section>
+
+<app-incident-filters (filtersChange)="load($event)" />
+
+@if (error()) {
+  <div class="alert">{{ error() }}</div>
+}
+
+@if (isLoading()) {
+  <app-loading-state label="Carregando incidentes..." />
+} @else if (incidents().length === 0) {
+  <app-empty-state
+    title="Nenhum incidente encontrado"
+    description="Crie seu primeiro incidente ou ajuste os filtros atuais."
+    link="/incidents/new"
+    actionLabel="Criar incidente"
+  />
+} @else {
+  <section class="list">
+    @for (incident of incidents(); track incident.id) {
+      <app-incident-card [incident]="incident" />
+    }
+  </section>
+}

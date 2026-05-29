@@ -1,0 +1,16 @@
+<header class="page-header">
+  <a routerLink="/">← Voltar ao Dashboard</a>
+  <div>
+    <h1>Novo incidente</h1>
+    <p>Registre um incidente com responsável, categoria e prioridade.</p>
+  </div>
+</header>
+
+@if (error()) {
+  <div class="alert">{{ error() }}</div>
+}
+
+<app-incident-form
+  [isSubmitting]="isSubmitting()"
+  (formSubmit)="createIncident($event)"
+/>

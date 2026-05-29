@@ -21,51 +21,50 @@
 
 ## Visão Geral
 
-Sentinel é uma plataforma de gerenciamento de incidentes desenvolvida como teste técnico. 
-Demonstra uma implementação completa de ponta a ponta envolvendo design de API REST, persistência em banco de dados, logs de auditoria, validação de entrada, tratamento de erros e documentação de API.
+Sentinel é uma plataforma de gerenciamento de incidentes desenvolvida como teste técnico. Demonstra uma implementação completa de ponta a ponta envolvendo design de API REST, persistência em banco de dados, logs de auditoria, validação de entrada, tratamento de erros e documentação de API.
 
 ---
 
 ## Features
 
-- Incident lifecycle management
-- Audit logging
-- Health monitoring endpoint
+- Create incidents
+- Update incidents
+- Incident status workflow
+- Audit timeline
 - Filtering by status, priority and category
-- Swagger/OpenAPI documentation
+- Health monitoring endpoint
+- Swagger documentation
 - Global exception handling
-- Input validation using DTOs
-- PostgreSQL persistence with Prisma ORM
+- Angular dashboard
+- Incident details page
 
 ---
 
 ## Tecnologias
 
-| Camada       | Tecnologia                          |
-|--------------|-------------------------------------|
-| Framework    | NestJS                              |
-| Linguagem    | TypeScript                          |
-| ORM          | Prisma 7                            |
-| Banco de dados | PostgreSQL 16                     |
-| Validação    | class-validator + class-transformer |
-| Documentação | Swagger (OpenAPI)                   |
-| Driver DB    | @prisma/adapter-pg                  |
-| Container    | Docker + Docker Compose             |
+### Back-end
 
----
+| Camada         | Tecnologia                          |
+|----------------|-------------------------------------|
+| Framework      | NestJS                              |
+| Linguagem      | TypeScript                          |
+| ORM            | Prisma 7                            |
+| Banco de dados | PostgreSQL 16                       |
+| Validação      | class-validator + class-transformer |
+| Documentação   | Swagger (OpenAPI)                   |
+| Driver DB      | @prisma/adapter-pg                  |
+| Container      | Docker + Docker Compose             |
 
-## Arquitetura
+### Front-end
 
-Client
-   │
-   ▼
-NestJS API
-   │
-   ▼
-Prisma ORM
-   │
-   ▼
-PostgreSQL
+| Camada        | Tecnologia             |
+|---------------|------------------------|
+| Framework     | Angular 21             |
+| Linguagem     | TypeScript             |
+| Estilização   | SCSS                   |
+| Formulários   | Reactive Forms         |
+| HTTP          | HttpClient             |
+| Roteamento    | Angular Router         |
 
 ---
 
@@ -76,23 +75,19 @@ sentinel/
 ├── backend/
 │   ├── src/
 │   │   ├── common/
-│   │   │   ├── filters/         # Filtro global de exceções
-│   │   │  
-│   │   │   
+│   │   │   └── filters/              # Filtro global de exceções
 │   │   ├── config/
 │   │   ├── modules/
-│   │   │   ├── incidents/       # Módulo principal de incidentes
-│   │   │   │   ├── dto/         # CreateIncidentDto, UpdateIncidentDto, QueryIncidentsDto, UpdateStatusDto
-│   │   │   │   │ 
+│   │   │   ├── incidents/            # Módulo principal de incidentes
+│   │   │   │   ├── dto/              # CreateIncidentDto, UpdateIncidentDto, QueryIncidentsDto, UpdateStatusDto
 │   │   │   │   ├── incidents.controller.ts
 │   │   │   │   ├── incidents.service.ts
 │   │   │   │   ├── incidents.module.ts
-│   │   │   │   ├── incidents.controller.spec
-│   │   │   │   ├── incidents.service.spec
-│   │   │   └── health/          # Endpoint de health check
-│   │   │       │
+│   │   │   │   ├── incidents.controller.spec.ts
+│   │   │   │   └── incidents.service.spec.ts
+│   │   │   └── health/               # Endpoint de health check
 │   │   │       ├── health.controller.ts
-│   │   │       ├── health.module.ts 
+│   │   │       └── health.module.ts
 │   │   ├── prisma/
 │   │   │   ├── prisma.module.ts
 │   │   │   └── prisma.service.ts
@@ -102,7 +97,27 @@ sentinel/
 │   │   ├── migrations/
 │   │   └── schema.prisma
 │   └── test/
+│
 ├── frontend/
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── core/
+│   │   │   │   └── interceptors/     # Interceptor global de erros HTTP
+│   │   │   ├── shared/
+│   │   │   │   └── components/       # Shell, LoadingState, EmptyState
+│   │   │   ├── features/
+│   │   │   │   └── incidents/
+│   │   │   │       ├── components/   # IncidentCard, IncidentForm, IncidentFilters, Badges, Timeline
+│   │   │   │       ├── models/       # Interfaces e tipos
+│   │   │   │       ├── pages/        # Dashboard, CreateIncident, IncidentDetails
+│   │   │   │       └── services/     # IncidentsService
+│   │   │   ├── app.component.ts
+│   │   │   ├── app.config.ts
+│   │   │   └── app.routes.ts
+│   │   ├── environments/
+│   │   └── styles.scss
+│   └── package.json
+│
 ├── docs/
 │   ├── incident-analysis.md
 │   └── technical-note.md
@@ -166,36 +181,36 @@ PORT=3333
 
 ---
 
-### 4. Instalar dependências
+### 4. Instalar dependências e iniciar o back-end
 
 ```bash
 cd backend
 npm install
-```
-
----
-
-### 5. Executar as migrations
-
-```bash
 npx prisma migrate dev
-```
-
-> Este comando também gera o Prisma Client automaticamente.
-
----
-
-### 6. Iniciar a API
-
-```bash
 npm run start:dev
 ```
 
-| Recurso           | URL                               |
-|-------------------|-----------------------------------|
-| Base da API       | http://localhost:3333/api         |
-| Swagger UI        | http://localhost:3333/docs        |
-| Health check      | http://localhost:3333/api/health  |
+| Recurso      | URL                              |
+|--------------|----------------------------------|
+| Base da API  | http://localhost:3333/api        |
+| Swagger UI   | http://localhost:3333/docs       |
+| Health check | http://localhost:3333/api/health |
+
+---
+
+### 5. Instalar dependências e iniciar o front-end
+
+Em outro terminal:
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+| Recurso      | URL                      |
+|--------------|--------------------------|
+| Aplicação    | http://localhost:4200    |
 
 ---
 
@@ -214,22 +229,22 @@ Todos os endpoints são prefixados com `/api` e estão documentados no Swagger U
 
 ### Health
 
-| Método | Endpoint       | Descrição          |
-|--------|----------------|--------------------|
-| GET    | /api/health    | Health check da API |
+| Método | Endpoint    | Descrição           |
+|--------|-------------|---------------------|
+| GET    | /api/health | Health check da API |
 
 ---
 
 ### Incidentes
 
-| Método | Endpoint                    | Descrição                          |
-|--------|-----------------------------|------------------------------------|
-| POST   | /api/incidents              | Criar um novo incidente            |
-| GET    | /api/incidents              | Listar incidentes (com filtros)    |
-| GET    | /api/incidents/:id          | Buscar incidente por ID            |
-| PATCH  | /api/incidents/:id          | Atualizar dados do incidente       |
-| PATCH  | /api/incidents/:id/status   | Atualizar status do incidente      |
-| DELETE | /api/incidents/:id          | Remover um incidente               |
+| Método | Endpoint                  | Descrição                     |
+|--------|---------------------------|-------------------------------|
+| POST   | /api/incidents            | Criar um novo incidente       |
+| GET    | /api/incidents            | Listar incidentes com filtros |
+| GET    | /api/incidents/:id        | Buscar incidente por ID       |
+| PATCH  | /api/incidents/:id        | Atualizar dados do incidente  |
+| PATCH  | /api/incidents/:id/status | Atualizar status do incidente |
+| DELETE | /api/incidents/:id        | Remover um incidente          |
 
 ---
 
@@ -287,11 +302,11 @@ priority: LOW  | MEDIUM      | HIGH     | CRITICAL
 
 Cada incidente mantém um histórico de auditoria gerado automaticamente. Cada operação registra uma entrada de log com as seguintes ações:
 
-| Ação                      | Disparada por                      |
-|---------------------------|------------------------------------|
-| `INCIDENT_CREATED`        | POST /api/incidents                |
-| `INCIDENT_UPDATED`        | PATCH /api/incidents/:id           |
-| `INCIDENT_STATUS_CHANGED` | PATCH /api/incidents/:id/status    |
+| Ação                      | Disparada por                   |
+|---------------------------|---------------------------------|
+| `INCIDENT_CREATED`        | POST /api/incidents             |
+| `INCIDENT_UPDATED`        | PATCH /api/incidents/:id        |
+| `INCIDENT_STATUS_CHANGED` | PATCH /api/incidents/:id/status |
 
 Os logs são retornados aninhados na resposta do incidente, ordenados por `createdAt` decrescente.
 
@@ -299,29 +314,39 @@ Os logs são retornados aninhados na resposta do incidente, ordenados por `creat
 
 ## Testes
 
-Estrutura preparada para testes unitários e de integração utilizando Jest.
+```bash
+# Testes unitários
+cd backend
+npm run test
 
-Os scripts já estão configurados e poderão ser utilizados conforme a evolução do projeto.
+# Testes em modo watch
+npm run test:watch
+
+# Relatório de cobertura
+npm run test:cov
+```
 
 ---
 
 ## Scripts Úteis
 
+### Back-end
+
 ```bash
-# Iniciar em modo desenvolvimento (hot reload)
-npm run start:dev
+npm run start:dev    # Iniciar em modo desenvolvimento (hot reload)
+npm run build        # Build para produção
+npm run start:prod   # Iniciar em modo produção
+npm run test         # Rodar testes
+npx prisma migrate dev  # Executar migrations
+npx prisma studio    # Abrir visualizador do banco
+```
 
-# Build para produção
-npm run build
+### Front-end
 
-# Iniciar em modo produção
-npm run start:prod
-
-# Executar migrations
-npx prisma migrate dev
-
-# Abrir o Prisma Studio (visualizador do banco)
-npx prisma studio
+```bash
+npm start            # Iniciar em modo desenvolvimento
+npm run build        # Build para produção
+npm run test         # Rodar testes
 ```
 
 ---
@@ -330,7 +355,16 @@ npx prisma studio
 
 A pasta `docs/` contém documentos complementares:
 
-| Arquivo                       | Descrição                                                        |
-|-------------------------------|------------------------------------------------------------------|
-| `docs/technical-note.md`      | Decisões de arquitetura, trade-offs e melhorias futuras          |
-| `docs/incident-analysis.md`   | Análise de cenário de incidente com causa raiz e medidas de prevenção |
+| Arquivo                     | Descrição                                                             |
+|-----------------------------|-----------------------------------------------------------------------|
+| `docs/technical-note.md`    | Decisões de arquitetura, trade-offs e melhorias futuras               |
+| `docs/incident-analysis.md` | Análise de cenário de incidente com causa raiz e medidas de prevenção |
+
+---
+
+## Autor
+
+Caique César Moreira Cruz Brandão
+
+GitHub: github.com/brandaoca44  
+LinkedIn: linkedin.com/in/caique-brandão-47319537b
