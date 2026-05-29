@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: sentinel-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: sentinel
+      POSTGRES_PASSWORD: sentinel123
+      POSTGRES_DB: sentinel_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - sentinel_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  sentinel_postgres_data:
