@@ -120,7 +120,7 @@ sentinel/
 │   └── package.json
 │
 ├── docs/
-│   ├── incident-analysis.md
+│   │
 │   └── technical-note.md
 ├── docker-compose.yml
 └── README.md
@@ -315,8 +315,15 @@ Os logs são retornados aninhados na resposta do incidente, ordenados por `creat
 
 ## Testes
 
+O projeto possui testes unitários cobrindo os principais fluxos da aplicação, incluindo:
+
+- Controller de incidentes
+- Service de incidentes
+- Configuração da aplicação
+
+Execução:
+
 ```bash
-# Testes unitários
 cd backend
 npm run test
 
