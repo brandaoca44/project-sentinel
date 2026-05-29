@@ -17,7 +17,7 @@ export class IncidentsService {
         logs: {
           create: {
             action: 'INCIDENT_CREATED',
-            message: `Incident created with priority ${dto.priority}`,
+            message: `Incidente criado com prioridade ${dto.priority}`,
           },
         },
       },
@@ -76,7 +76,7 @@ export class IncidentsService {
         logs: {
           create: {
             action: 'INCIDENT_UPDATED',
-            message: `Incident updated: ${Object.keys(data).join(', ')}`,
+            message: `Incidente atualizado: ${Object.keys(data).join(', ')}`,
           },
         },
       },
@@ -98,7 +98,7 @@ export class IncidentsService {
         logs: {
           create: {
             action: 'INCIDENT_STATUS_CHANGED',
-            message: `Incident status changed to ${status}`,
+            message: `O status do incidente foi alterado para ${status}`,
           },
         },
       },
@@ -118,7 +118,7 @@ export class IncidentsService {
     });
 
     return {
-      message: 'Incident deleted successfully',
+      message: 'Incidente excluído com sucesso',
       id,
     };
   }

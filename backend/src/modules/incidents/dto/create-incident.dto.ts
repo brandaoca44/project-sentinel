@@ -4,7 +4,7 @@ import { IsEnum, IsOptional, IsString, MaxLength, MinLength } from 'class-valida
 import { Transform } from 'class-transformer';
 
 export class CreateIncidentDto {
-  @ApiProperty({ example: 'Database connection instability' })
+  @ApiProperty({ example: 'Instabilidade na conexão com o banco de dados' })
   @Transform(({ value }) => value?.trim())
   @IsString()
   @MinLength(5)
@@ -12,7 +12,7 @@ export class CreateIncidentDto {
   title!: string;
 
   @ApiProperty({
-    example: 'Users are experiencing intermittent connection failures.',
+    example: 'Usuários estão enfrentando falhas intermitentes de conexão durante a autenticação.',
   })
   @Transform(({ value }) => value?.trim())
   @IsString()
@@ -21,7 +21,7 @@ export class CreateIncidentDto {
   description!: string;
 
   @ApiProperty({
-    example: 'infrastructure',
+    example: 'infraestrutura',
   })
   @Transform(({ value }) => value?.trim().toLowerCase())
   @IsString()

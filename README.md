@@ -26,6 +26,19 @@ Demonstra uma implementação completa de ponta a ponta envolvendo design de API
 
 ---
 
+## Features
+
+- Incident lifecycle management
+- Audit logging
+- Health monitoring endpoint
+- Filtering by status, priority and category
+- Swagger/OpenAPI documentation
+- Global exception handling
+- Input validation using DTOs
+- PostgreSQL persistence with Prisma ORM
+
+---
+
 ## Tecnologias
 
 | Camada       | Tecnologia                          |
@@ -38,6 +51,21 @@ Demonstra uma implementação completa de ponta a ponta envolvendo design de API
 | Documentação | Swagger (OpenAPI)                   |
 | Driver DB    | @prisma/adapter-pg                  |
 | Container    | Docker + Docker Compose             |
+
+---
+
+## Arquitetura
+
+Client
+   │
+   ▼
+NestJS API
+   │
+   ▼
+Prisma ORM
+   │
+   ▼
+PostgreSQL
 
 ---
 
