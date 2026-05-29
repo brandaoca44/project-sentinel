@@ -26,12 +26,26 @@ export class IncidentDetailsComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly incidentsService = inject(IncidentsService);
 
-  readonly statuses: { value: IncidentStatus; label: string }[] = [
-    { value: 'OPEN', label: 'Aberto' },
-    { value: 'IN_PROGRESS', label: 'Em andamento' },
-    { value: 'RESOLVED', label: 'Resolvido' },
-    { value: 'CLOSED', label: 'Encerrado' },
-  ];
+readonly statuses = [
+  { value: 'OPEN' as IncidentStatus, label: 'Aberto' },
+  { value: 'IN_PROGRESS' as IncidentStatus, label: 'Em andamento' },
+  { value: 'RESOLVED' as IncidentStatus, label: 'Resolvido' },
+  { value: 'CLOSED' as IncidentStatus, label: 'Encerrado' },
+];
+
+readonly statusLabels: Record<IncidentStatus, string> = {
+  OPEN: 'Aberto',
+  IN_PROGRESS: 'Em andamento',
+  RESOLVED: 'Resolvido',
+  CLOSED: 'Encerrado',
+};
+
+readonly priorityLabels = {
+  LOW: 'Baixa',
+  MEDIUM: 'Média',
+  HIGH: 'Alta',
+  CRITICAL: 'Crítica',
+};
   readonly incident = signal<Incident | null>(null);
   readonly isLoading = signal(true);
   readonly isUpdating = signal(false);
