@@ -7,6 +7,7 @@
 ## Índice
 
 - [Visão Geral](#visão-geral)
+- [Features](#features)
 - [Tecnologias](#tecnologias)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Como Executar](#como-executar)
@@ -27,16 +28,16 @@ Sentinel é uma plataforma de gerenciamento de incidentes desenvolvida como test
 
 ## Features
 
-- Create incidents
-- Update incidents
-- Incident status workflow
-- Audit timeline
-- Filtering by status, priority and category
-- Health monitoring endpoint
-- Swagger documentation
-- Global exception handling
-- Angular dashboard
-- Incident details page
+- Criação de incidentes
+- Atualização de incidentes
+- Fluxo de status dos incidentes
+- Timeline de auditoria
+- Filtros por status, prioridade e categoria
+- Endpoint de monitoramento (Health Check)
+- Documentação Swagger
+- Tratamento global de exceções
+- Dashboard Angular
+- Página de detalhes do incidente
 
 ---
 
